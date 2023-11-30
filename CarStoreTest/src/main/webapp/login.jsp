@@ -1,17 +1,12 @@
-<%-- 
-    Document   : login
-    Created on : 2023年11月30日, 下午1:18:53
-    Author     : 23956
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Login Page</title>
-    <%@include file="HeaderFooter/header.jsp" %>
+    <%@include file="includes/head.jsp" %>
   </head>
   <body>
-    <%@include file="HeaderFooter/navbar.jsp" %>
+    <%@include file="includes/navbar.jsp" %>
     <div class="container">
         <div class="card w-50 mx-auto my-5">
             <div class="card-header text-center">User Login</div>
@@ -32,6 +27,6 @@
 		</div>
         </div>
     </div>
-    <%@include file="HeaderFooter/footer.jsp" %>
+    <%@include file="includes/foot.jsp" %>
   </body>
 </html>

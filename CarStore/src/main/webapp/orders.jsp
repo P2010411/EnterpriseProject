@@ -1,5 +1,3 @@
-<%@page import="java.sql.Connection"%>
-<%@page import="com.mycompany.carstore.Connection.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
   <head>
@@ -8,10 +6,7 @@
   </head>
   <body>
     <%@include file="HeaderFooter/navbar.jsp" %>
-    
-    <% Connection connection = DBConnection.getConnection();
-       out.print(connection); %>
-    
+    <h1>Hello, world!</h1>
     <%@include file="HeaderFooter/footer.jsp" %>
   </body>
 </html>
