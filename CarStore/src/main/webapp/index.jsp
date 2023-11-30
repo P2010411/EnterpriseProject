@@ -1,6 +1,13 @@
+<%@page import="com.mycompany.carstore.Beans.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.mycompany.carstore.Connection.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+CustomerBean auth = (CustomerBean) request.getSession().getAttribute("auth");
+if (auth != null) {
+    request.setAttribute("auth", auth);
+}
+%>
 <html lang="en">
   <head>
     <title>Home Page</title>

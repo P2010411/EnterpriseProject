@@ -4,7 +4,15 @@
     Author     : 23956
 --%>
 
+<%@page import="com.mycompany.carstore.Beans.*"%>
+<%@page import="com.mycompany.carstore.Connection.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+CustomerBean auth = (CustomerBean) request.getSession().getAttribute("auth");
+if (auth != null) {
+    response.sendRedirect("index.jsp");
+}
+%>
 <html lang="en">
   <head>
     <title>Login Page</title>

@@ -12,15 +12,24 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="cart.jsp">Cart</a>
                 </li>
+                <%
+		if (auth != null) {
+		%>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="orders.jsp">Order</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="log-out">Logout</a>
+                </li>
+                <%
+		} else {
+		%>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="login.jsp">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login.jsp">Logout</a>
-                </li>
+                <%
+		}
+		%>
             </ul>
         </div>
     </div>
