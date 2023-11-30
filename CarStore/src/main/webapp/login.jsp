@@ -16,7 +16,7 @@
         <div class="card w-50 mx-auto my-5">
             <div class="card-header text-center">User Login</div>
 		<div class="card-body">
-                    <form action="user-login" method="post">
+                    <form action="login" method="post">
 			<div class="mb-3">
                             <label class="form-label">Email address</label> 
                             <input type="email" name="login-email" class="form-control" placeholder="Enter email" required>
