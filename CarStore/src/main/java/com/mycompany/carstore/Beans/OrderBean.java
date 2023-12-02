@@ -9,5 +9,6 @@ package com.mycompany.carstore.Beans;
  * @author 23956
  */
 public class OrderBean {
+    private int id;
     
 }
