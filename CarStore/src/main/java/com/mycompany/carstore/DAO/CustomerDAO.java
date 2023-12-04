@@ -79,7 +79,7 @@ public class CustomerDAO {
     public List<CustomerBean> getAllCustomers() {
         List<CustomerBean> customers = new ArrayList<>();
         try(Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){

@@ -18,10 +18,10 @@ public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
 	try (PrintWriter out = response.getWriter()) {
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String address = request.getParameter("address");
+            String name = request.getParameter("signup-name");
+            String email = request.getParameter("signup-email");
+            String password = request.getParameter("signup-password");
+            String address = request.getParameter("signup-address");
 
             CustomerBean customer = new CustomerBean(name, email, password, address);
 

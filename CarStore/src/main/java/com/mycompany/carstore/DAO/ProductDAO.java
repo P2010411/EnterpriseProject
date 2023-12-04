@@ -15,15 +15,14 @@ public class ProductDAO {
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "123456";
     
-    private static final String INSERT_PRODUCT_SQL = "INSERT INTO product" + "  (modelName, year, optionsPackage, color, motorSize, price, acceleration, fuelType, image, branch) VALUES "
-        + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String SELECT_PRODUCT_BY_ID = "select id, modelName, year, optionsPackage, color, motorSize, price, acceleration, fuelType, image, branch from product where id =?";
+    private static final String INSERT_PRODUCT_SQL = "insert into product (modelName, year, optionsPackage, color, motorSize, price, acceleration, fuelType, image, branch) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_ALL_PRODUCTS = "select * from product";
     private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?;";
     private static final String UPDATE_PRODUCT_SQL = "update product set modelName = ?, year = ?, optionsPackage = ?, color = ?, motorSize = ?, price = ?, acceleration = ?, fuelType = ?, image = ?, branch = ? where id = ?;";
     private static final String GET_CART_PRODUCTS_SQL = "select * from product where id=?";
     private static final String GET_CART_PRICE_SQL = "select price from product where id=?";
     private static final String GET_SINGLE_PRODUCTS_SQL = "select * from product where id=?";
+    private static final String SEARCH_PRODUCTS_SQL = "SELECT * FROM product WHERE modelName LIKE ? OR branch LIKE ?";
     
     public ProductDAO() {
     }
@@ -65,6 +64,35 @@ public class ProductDAO {
         } catch (SQLException e) {
             printSQLException(e);
         }
+        return products;
+    }
+    
+    public List<ProductBean> searchProduct(String keyword) {
+        List<ProductBean> products = new ArrayList<>();
+        try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCTS_SQL);){
+            preparedStatement.setString(1, "%" + keyword + "%");
+            preparedStatement.setString(2, "%" + keyword + "%");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                ProductBean product = new ProductBean();
+                product.setId(rs.getInt("id"));
+                product.setModelName(rs.getString("modelName"));
+                product.setYear(rs.getInt("year"));
+                product.setOptionsPackage(rs.getString("optionsPackage"));
+                product.setColor(rs.getString("color"));
+                product.setMotorSize(rs.getString("motorSize"));
+                product.setPrice(rs.getBigDecimal("price"));
+                product.setAcceleration(rs.getDouble("acceleration"));
+                product.setFuelType(rs.getString("fuelType"));
+                product.setImage(rs.getString("image"));
+                product.setBranch(rs.getString("branch"));
+                products.add(product);
+            } 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } 
         return products;
     }
     
@@ -148,6 +176,64 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         } 
         return product;
+    }
+    
+    public boolean insertProduct(ProductBean product) {
+        boolean result = false;
+        try (Connection connection = getConnection(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_SQL)) {
+            preparedStatement.setString(1, product.getModelName());
+            preparedStatement.setInt(2, product.getYear());
+            preparedStatement.setString(3, product.getOptionsPackage());
+            preparedStatement.setString(4, product.getColor());
+            preparedStatement.setString(5, product.getMotorSize());
+            preparedStatement.setBigDecimal(6, product.getPrice());
+            preparedStatement.setDouble(7, product.getAcceleration());
+            preparedStatement.setString(8, product.getFuelType());
+            preparedStatement.setString(9, product.getImage());
+            preparedStatement.setString(10, product.getBranch());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public boolean editProduct(ProductBean product) {
+        boolean result = false;
+        try (Connection connection = getConnection(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SQL)) {
+            preparedStatement.setString(1, product.getModelName());
+            preparedStatement.setInt(2, product.getYear());
+            preparedStatement.setString(3, product.getOptionsPackage());
+            preparedStatement.setString(4, product.getColor());
+            preparedStatement.setString(5, product.getMotorSize());
+            preparedStatement.setBigDecimal(6, product.getPrice());
+            preparedStatement.setDouble(7, product.getAcceleration());
+            preparedStatement.setString(8, product.getFuelType());
+            preparedStatement.setString(9, product.getImage());
+            preparedStatement.setString(10, product.getBranch());
+            preparedStatement.setInt(11, product.getId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public boolean deleteProduct(int id) {
+        boolean result = false;
+        try (Connection connection = getConnection(); 
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
     }
     
     private void printSQLException(SQLException ex) {

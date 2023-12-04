@@ -19,22 +19,34 @@ if (cart_list != null) {
 </head>
 <body>
     <%@include file="HeaderFooter/navbar.jsp" %>
-    <h1>Sign Up</h1>
-    <form action="signup" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required><br><br>
-        
-        <input type="submit" value="Sign Up">
-    </form>
+    <div class="container">
+        <div class="card w-50 mx-auto my-5">
+            <div class="card-header text-center">Sign Up</div>
+		<div class="card-body">
+                    <form action="signup" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Username:</label> 
+                            <input type="text" name="signup-name" class="form-control" placeholder="Enter Name" required>
+			</div>
+			<div class="mb-3">
+                            <label class="form-label">Email:</label> 
+                            <input type="email" name="signup-email" class="form-control" placeholder="Enter Email" required>
+			</div>
+			<div class="mb-3">
+                            <label class="form-label">Password:</label> 
+                            <input type="password" name="signup-password" class="form-control" placeholder="Password" required>
+			</div>
+                        <div class="mb-3">
+                            <label class="form-label">Address:</label> 
+                            <input type="text" name="signup-address" class="form-control" placeholder="Enter Address" required>
+			</div>
+			<div class="text-center">
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </form>
+		</div>
+        </div>
+    </div>
     <%@include file="HeaderFooter/footer.jsp" %>
 </body>
 </html>

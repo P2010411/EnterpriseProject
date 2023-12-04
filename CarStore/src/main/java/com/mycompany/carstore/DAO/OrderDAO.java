@@ -36,7 +36,7 @@ public class OrderDAO {
     public boolean insertOrder(OrderBean order){
         boolean result = false;
         try (Connection connection = getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
             preparedStatement.setInt(1, order.getId());
             preparedStatement.setInt(2, order.getUid());
             preparedStatement.setInt(3, order.getQunatity());
@@ -52,7 +52,7 @@ public class OrderDAO {
     public List<OrderBean> userOrders(int id) {
         List<OrderBean> list = new ArrayList<>();
         try (Connection connection = getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(ORDER_LIST_SQL);){
+            PreparedStatement preparedStatement = connection.prepareStatement(ORDER_LIST_SQL)){
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -79,7 +79,7 @@ public class OrderDAO {
     
     public void cancelOrder(int id) {
         try (Connection connection = getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(CANCEL_ORDER_SQL);){
+            PreparedStatement preparedStatement = connection.prepareStatement(CANCEL_ORDER_SQL)){
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {

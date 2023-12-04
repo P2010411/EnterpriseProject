@@ -8,15 +8,22 @@ CustomerBean auth = (CustomerBean) request.getSession().getAttribute("auth");
 if (auth != null) {
     request.setAttribute("auth", auth);
 }
-
+String action = request.getParameter("action");
+String keyword = request.getParameter("keyword");
 ProductDAO pd = new ProductDAO();
-List<ProductBean> products = pd.selectAllProducts();
+List<ProductBean> productList = null;
+if (action != null && action.equals("search") && keyword != null && !keyword.isEmpty()) {
+    productList = pd.searchProduct(keyword);
+} else {
+    if (keyword == null || keyword.isEmpty()) {
+        productList = pd.selectAllProducts();
+    }
+}
 
 ArrayList<CartBean> cart_list = (ArrayList<CartBean>) session.getAttribute("cart-list");
 if (cart_list != null) {
     request.setAttribute("cart_list", cart_list);
 }
-
 %>
 <html lang="en">
   <head>
@@ -29,13 +36,17 @@ if (cart_list != null) {
         <div class="card text-center" style="margin-top: 20px;">
             <div class="card-header text-center">
                 <h1>All Products</h1>
-                <a href="#" class="btn btn-primary">Add New Product</a>
+                <a href="add-product.jsp" class="btn btn-primary">Add New Product</a>
+                <form class="d-flex" role="search" style="margin-top: 20px;" action="index.jsp" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                    <button class="btn btn-outline-success" type="submit" name="action" value="search">Search</button>
+                </form>
             </div>
         </div>
         <div class="row">
             <%
-                if (!products.isEmpty()){
-                    for(ProductBean p:products){
+                if (!productList.isEmpty()){
+                    for(ProductBean p:productList){
             %>
                         <div class="col-md-3 my-3">
                             <div class="card" style="width: 18rem;">
@@ -58,17 +69,24 @@ if (cart_list != null) {
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="d-grid gap-2">
-                                            <a href="#" class="btn btn-outline-success">Edit</a>
-                                            <a href="#" class="btn btn-outline-danger">Delete</a>
+                                            <a href="edit-product.jsp?id=<%= p.getId() %>" class="btn btn-outline-success">Edit</a>
+                                            <a href="delete-product?id=<%= p.getId() %>" class="btn btn-outline-danger">Delete</a>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-            <%}
+            <%
+                }
+            } else {
+            %>
+            <h1 style="text-align: center;margin-top: 100px">No Product Found</h1>
+            <div style="text-align: center;margin-top: 100px">
+                <a href="index.jsp" class="btn btn-primary">All Products</a>
+            </div>
+            <%
                 }
             %>
-            
         </div>
     </div> 
     <%@include file="HeaderFooter/footer.jsp" %>
