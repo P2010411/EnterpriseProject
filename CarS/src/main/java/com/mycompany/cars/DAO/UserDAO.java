@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/carstore?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "123456";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/carstore?useSSL=false";
+    private final String jdbcUsername = "root";
+    private final String jdbcPassword = "123456";
     
     private static final String INSERT_USERS_SQL = "INSERT INTO customers" + "  (name, email, password, address) VALUES "
 			+ " (?, ?, ?, ?);";

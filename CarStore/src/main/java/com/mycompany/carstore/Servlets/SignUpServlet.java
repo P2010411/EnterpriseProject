@@ -10,24 +10,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/signup")
+public class SignUpServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
 	try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("login-email");
-            String password = request.getParameter("login-password");
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String address = request.getParameter("address");
+
+            CustomerBean customer = new CustomerBean(name, email, password, address);
 
             CustomerDAO cdao = new CustomerDAO();
-            CustomerBean customer = cdao.customerLogin(email, password);
-            if (customer != null) {
+            try {
+                cdao.customerSignUp(customer);
                 request.getSession().setAttribute("auth", customer);
-		response.sendRedirect("index.jsp");
-            } else {
-		out.println("there is no user");
+                response.sendRedirect("index.jsp");
+            } catch (Exception e) {
+                out.println("Registration failed. Please try again.");
             }
         } 
     }

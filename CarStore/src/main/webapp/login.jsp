@@ -1,16 +1,14 @@
-<%-- 
-    Document   : login
-    Created on : 2023年11月30日, 下午1:18:53
-    Author     : 23956
---%>
-
+<%@page import="java.util.*"%>
 <%@page import="com.mycompany.carstore.Beans.*"%>
-<%@page import="com.mycompany.carstore.Connection.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 CustomerBean auth = (CustomerBean) request.getSession().getAttribute("auth");
 if (auth != null) {
     response.sendRedirect("index.jsp");
+}
+ArrayList<CartBean> cart_list = (ArrayList<CartBean>) session.getAttribute("cart-list");
+if (cart_list != null) {
+    request.setAttribute("cart_list", cart_list);
 }
 %>
 <html lang="en">
