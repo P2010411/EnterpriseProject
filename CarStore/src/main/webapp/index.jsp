@@ -38,6 +38,7 @@ if (cart_list != null) {
                 <h1>All Products</h1>
                 <a href="add-product.jsp" class="btn btn-primary">Add New Product</a>
                 <form class="d-flex" role="search" style="margin-top: 20px;" action="index.jsp" method="get">
+                    <a href="index.jsp" class="btn btn-outline-success" style="width:150px; margin-right: 10px">All Products</a>
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
                     <button class="btn btn-outline-success" type="submit" name="action" value="search">Search</button>
                 </form>
@@ -53,7 +54,7 @@ if (cart_list != null) {
                                 <img src="product-image/<%= p.getImage() %>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                   <h5 class="card-title"><%= p.getModelName() %></h5>
-                                  <h6 class="price">Price: $<%= p.getPrice() %></h6>
+                                  <h6 class="price" style="color: red">Price: $<%= p.getPrice() %></h6>
                                   <h6 class="year">Year: <%= p.getYear() %></h6>
                                   <h6 class="color">Color: <%= p.getColor() %></h6>
                                   <h6 class="options_package">Options Package: <%= p.getOptionsPackage() %></h6>
@@ -81,9 +82,6 @@ if (cart_list != null) {
             } else {
             %>
             <h1 style="text-align: center;margin-top: 100px">No Product Found</h1>
-            <div style="text-align: center;margin-top: 100px">
-                <a href="index.jsp" class="btn btn-primary">All Products</a>
-            </div>
             <%
                 }
             %>

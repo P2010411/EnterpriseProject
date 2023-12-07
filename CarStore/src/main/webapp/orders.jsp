@@ -26,7 +26,7 @@ if (cart_list != null) {
   <body>
     <%@include file="HeaderFooter/navbar.jsp" %>
     <div class="container">
-	<div class="card-header my-3">All Orders</div>
+	<div class="card-header my-3" style="font-size: 40px; text-align: center">All Orders</div>
 	<table class="table table-light">
             <thead>
                 <tr>

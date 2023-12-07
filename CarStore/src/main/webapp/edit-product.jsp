@@ -19,7 +19,7 @@ ProductBean product = productDAO.getSingleProduct(id);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add New Product</title>
+        <title>Edit the Product</title>
         <%@include file="HeaderFooter/header.jsp" %>
     </head>
     <body>
